@@ -76,9 +76,16 @@ for (i = 0; i &lt; instance_number(obj_soldier); i++)
         {
             for (k = (ly - lightRadius); k &lt;= (ly + lightRadius); k++)
             {
-                if (collision_line(x, y, (j * 64) + 32, (k * 64) + 32, obj_wall, 0, 0) &amp;&amp; j &gt;= 0 &amp;&amp; j &lt;= 31 &amp;&amp; k &gt;= 0 &amp;&amp; k &lt;= 18
-                    &amp;&amp; point_distance(x, y, (j * 64) + 32, (k * 64) + 32) &lt;= (lightRadius * 64))
-                    ds_grid_set(obj_game.light, j, k, 1);
+                distToSource = point_distance(x, y, j * 64, k * 64);
+            
+                if (!collision_line(x, y, j * 64, k * 64, obj_wall, 0, 0) &amp;&amp; j &gt;= 0 &amp;&amp; j &lt;= 31 &amp;&amp; k &gt;= 0 &amp;&amp; k &lt;= 18
+                    &amp;&amp; distToSource &lt;= (lightRadius * 64))
+                {
+                    ds_grid_add(obj_game.light, j, k, min((((lightRadius * 64) - distToSource) / (lightRadius * 64)) + 0.1, 1));
+                    
+                    if (ds_grid_get(obj_game.light, j, k) &gt; 1)
+                        ds_grid_set(obj_game.light, j, k, 1);
+                }
             }
         }
     }
