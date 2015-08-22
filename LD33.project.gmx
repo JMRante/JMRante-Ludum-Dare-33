@@ -12,6 +12,7 @@
     <sprite>sprites\spr_wallMask</sprite>
     <sprite>sprites\spr_bloodStain</sprite>
     <sprite>sprites\spr_mask</sprite>
+    <sprite>sprites\spr_dark</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -21,7 +22,7 @@
   <objects name="objects">
     <objects name="Control">
       <object>objects\obj_init</object>
-      <object>objects\obj_roomInit</object>
+      <object>objects\obj_game</object>
     </objects>
     <objects name="Game">
       <object>objects\obj_monster</object>

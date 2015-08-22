@@ -31,6 +31,7 @@ walkMin = 5;
 initWalkMin = 5;
 walkMax = 10;
 initWalkMax = 10;
+lightRadius = 5;
 
 planDir = instance_place(x, y, obj_soldierSpawn).image_angle;
 planDist = irandom_range(initWalkMin, initWalkMax);

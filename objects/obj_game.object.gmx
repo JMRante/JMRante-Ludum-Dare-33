@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-100</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,66 +25,23 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Get a good random seed
-randomize();
+            <string>//Set up the view in the room
+view_wview[0] = 1920;
+view_wport[0] = 1920;
+view_hview[0] = 1080;
+view_hport[0] = 1080;
+view_hborder[0] = 1920/2;
+view_vborder[0] = 1080/2;
 
-//Get default resolution
-var w = display_get_width();
-var h = display_get_height();
-var defaultWidth;
-var defaultHeight;
-
-//Perfomance set resolution
-if (w &gt;= 1920 &amp;&amp; h &gt;= 1080)
-{
-    defaultWidth = 1920;
-    defaultHeight = 1080;
-}
-else if (w &gt;= 1600 &amp;&amp; h &gt;= 900)
-{
-    defaultWidth = 1600;
-    defaultHeight = 900;
-}
-else if (w &gt;= 1280 &amp;&amp; h &gt;= 720)
-{
-    defaultWidth = 1280;
-    defaultHeight = 720;
-}
-else
-{
-    defaultWidth = 640;
-    defaultHeight = 360;
-}
-
-//Input Allowed
-globalvar inputAllowed;
-inputAllowed = false;
-
-//Check for correct value
-window_set_fullscreen(true);
-
-surface_resize(application_surface, defaultWidth, defaultHeight);
-window_set_size(defaultWidth, defaultHeight);
-/*
-//DEBUG screen settings
-//
-//
-defaultWidth = 1280;
-defaultHeight = 720;
-surface_resize(application_surface, defaultWidth, defaultHeight);
-window_set_size(defaultWidth, defaultHeight);
-window_set_fullscreen(false);
-//
-//
-*/
-//Remove instance
-instance_destroy();
+//Create grid of light data
+light = ds_grid_create(32,19);
+ds_grid_clear(light, 0.1);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="1" enumb="0">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -101,7 +58,66 @@ instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>room_goto_next();
+            <string>//Cast light
+var i, j, k;
+
+ds_grid_clear(light, 0.1);
+    
+for (i = 0; i &lt; instance_number(obj_soldier); i++)
+{
+    s = instance_find(obj_soldier,i);
+
+    with (s)
+    {
+        lx = floor(x / 64);
+        ly = floor(y / 64);
+        
+        for (j = (lx - lightRadius); j &lt;= (lx + lightRadius); j++)
+        {
+            for (k = (ly - lightRadius); k &lt;= (ly + lightRadius); k++)
+            {
+                if (collision_line(x, y, (j * 64) + 32, (k * 64) + 32, obj_wall, 0, 0) &amp;&amp; j &gt;= 0 &amp;&amp; j &lt;= 31 &amp;&amp; k &gt;= 0 &amp;&amp; k &lt;= 18
+                    &amp;&amp; point_distance(x, y, (j * 64) + 32, (k * 64) + 32) &lt;= (lightRadius * 64))
+                    ds_grid_set(obj_game.light, j, k, 1);
+            }
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Draw lighting
+var i, j;
+
+for (i = -1; i &lt; (ds_grid_width(light) - 1); i++)
+{
+    for (j = -1; j &lt; (ds_grid_height(light) - 1); j++)
+    {
+        draw_set_alpha(1 - ds_grid_get(light, i, j));
+        draw_sprite(spr_dark, 0, i * 64, j * 64);
+    }
+}
+
+draw_set_alpha(1);
 </string>
           </argument>
         </arguments>
