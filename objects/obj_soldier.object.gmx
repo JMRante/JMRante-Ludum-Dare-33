@@ -25,16 +25,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>spd = 4;
+            <string>spd = 2;
 thinkTime = 120;
-walkMin = 1;
-initWalkMin = 3;
-walkMax = 6;
-initWalkMax = 6;
+walkMin = 5;
+initWalkMin = 5;
+walkMax = 10;
+initWalkMax = 10;
 
 planDir = instance_place(x, y, obj_soldierSpawn).image_angle;
 planDist = irandom_range(initWalkMin, initWalkMax);
-state = 0; //0 = act, 1 = think
+state = 0; //0 = act, 1 = think, 2 = rest
 </string>
           </argument>
         </arguments>
@@ -57,7 +57,9 @@ state = 0; //0 = act, 1 = think
         <arguments>
           <argument>
             <kind>1</kind>
-            <string></string>
+            <string>//Rest
+state = 0;
+</string>
           </argument>
         </arguments>
       </action>
@@ -92,7 +94,7 @@ if (place_snapped(64, 64) &amp;&amp; state == 0)
 {
     if (hspeed == 0 &amp;&amp; vspeed == 0 &amp;&amp; planDist &gt; 0)
     {
-        switch(dir)
+        switch(planDir)
         {
             case 0:
                 hspeed = spd;
@@ -124,11 +126,33 @@ if (place_snapped(64, 64) &amp;&amp; state == 0)
     }
 }
 
+//Think
 if (state == 1)
 {
     planDist = irandom_range(walkMin, walkMax);
+    planDir = irandom_range(0,3);
     
+    while((place_meeting(x + 64, y, obj_wall) &amp;&amp; planDir == 0) 
+            || (place_meeting(x, y - 64, obj_wall) &amp;&amp; planDir == 1)
+            || (place_meeting(x - 64, y, obj_wall) &amp;&amp; planDir == 2) 
+            || (place_meeting(x, y + 64, obj_wall) &amp;&amp; planDir == 3))
+    {
+        if (planDir &lt; 3)
+            planDir += 1;
+        else if (planDir == 3)
+            planDir = 0;
+    }
+    
+    planDir *= 90;
     alarm[0] = thinkTime;
+    state = 2;
+}
+
+//Die
+if (place_meeting(x, y, obj_monster))
+{
+    instance_create(x, y, obj_bloodStain);
+    instance_destroy();
 }
 </string>
           </argument>
