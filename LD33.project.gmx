@@ -6,14 +6,18 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_mask</sprite>
+    <sprite>sprites\spr_monster</sprite>
     <sprite>sprites\spr_soldier</sprite>
     <sprite>sprites\spr_soldierSpawn</sprite>
     <sprite>sprites\spr_wallMask</sprite>
     <sprite>sprites\spr_bloodStain</sprite>
+    <sprite>sprites\spr_mask</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\scr_screenShake.gml</script>
+  </scripts>
   <objects name="objects">
     <objects name="Control">
       <object>objects\obj_init</object>

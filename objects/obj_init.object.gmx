@@ -56,67 +56,28 @@ else
     defaultHeight = 360;
 }
 
-//Open options file for editing.
-ini_open(working_directory + "config.ini");
-
-//Initiate global variables for the game
-//Game resolution
-globalvar resolutionWidth;
-resolutionWidth = ini_read_real("Graphics","ResolutionWidth",defaultWidth);
-globalvar resolutionHeight;
-resolutionHeight = ini_read_real("Graphics","ResolutionHeight",defaultHeight);
-globalvar aspectRatio;
-aspectRatio = resolutionWidth/resolutionHeight;
-
-//Go to default resolution if bad resolution is entered.
-if (aspectRatio != 16/9 || resolutionWidth &lt; 640 || resolutionHeight &lt; 360)
-{
-    resolutionWidth = 1280;
-    resolutionHeight = 720;
-    aspectRatio = resolutionWidth/resolutionHeight;
-}
-
 //Input Allowed
 globalvar inputAllowed;
 inputAllowed = false;
 
-//Sound and Music Volumes
-globalvar soundVolume;
-soundVolume = ini_read_real("Audio","Volume",1);
-
-//Check for correct value, else go to default
-if (soundVolume &lt; 0 || soundVolume &gt; 1)
-    soundVolume = 1;
-
-//Initiate Game Window
-globalvar fullscreen;
-fullscreen = ini_read_real("Graphics","Fullscreen",1);
-
 //Check for correct value
-if (fullscreen != 0 &amp;&amp; fullscreen != 1)
-    fullscreen = 1;
-    
-if (fullscreen)
-    window_set_fullscreen(true);
-else
-    window_set_fullscreen(false);
+window_set_fullscreen(true);
 
-surface_resize(application_surface,resolutionWidth,resolutionHeight);
-window_set_size(resolutionWidth,resolutionHeight);
+surface_resize(application_surface, defaultWidth, defaultHeight);
+window_set_size(defaultWidth, defaultHeight);
 
 //DEBUG screen settings
 //
 //
-resolutionWidth = 1280;
-resolutionHeight = 720;
-surface_resize(application_surface,resolutionWidth,resolutionHeight);
-window_set_size(resolutionWidth,resolutionHeight);
+defaultWidth = 1280;
+defaultHeight = 720;
+surface_resize(application_surface, defaultWidth, defaultHeight);
+window_set_size(defaultWidth, defaultHeight);
 window_set_fullscreen(false);
 //
 //
 
 //Remove instance
-ini_close();
 instance_destroy();
 </string>
           </argument>
