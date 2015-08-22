@@ -5,14 +5,30 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_mask</sprite>
+    <sprite>sprites\spr_soldier</sprite>
+    <sprite>sprites\spr_soldierSpawn</sprite>
+    <sprite>sprites\spr_wallMask</sprite>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
     <objects name="Control">
       <object>objects\obj_init</object>
+      <object>objects\obj_roomInit</object>
+    </objects>
+    <objects name="Game">
+      <object>objects\obj_monster</object>
+      <object>objects\obj_wall</object>
+      <object>objects\obj_soldier</object>
+      <object>objects\obj_soldierSpawn</object>
     </objects>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_init</room>
+    <room>rooms\rm_experi</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>

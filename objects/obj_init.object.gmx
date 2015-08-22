@@ -57,7 +57,7 @@ else
 }
 
 //Open options file for editing.
-ini_open("config.ini");
+ini_open(working_directory + "config.ini");
 
 //Initiate global variables for the game
 //Game resolution
@@ -95,7 +95,7 @@ fullscreen = ini_read_real("Graphics","Fullscreen",1);
 //Check for correct value
 if (fullscreen != 0 &amp;&amp; fullscreen != 1)
     fullscreen = 1;
-
+    
 if (fullscreen)
     window_set_fullscreen(true);
 else
@@ -103,6 +103,17 @@ else
 
 surface_resize(application_surface,resolutionWidth,resolutionHeight);
 window_set_size(resolutionWidth,resolutionHeight);
+
+//DEBUG screen settings
+//
+//
+resolutionWidth = 1280;
+resolutionHeight = 720;
+surface_resize(application_surface,resolutionWidth,resolutionHeight);
+window_set_size(resolutionWidth,resolutionHeight);
+window_set_fullscreen(false);
+//
+//
 
 //Remove instance
 ini_close();
