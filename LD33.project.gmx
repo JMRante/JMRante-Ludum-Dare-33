@@ -6,15 +6,21 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_monster</sprite>
     <sprite>sprites\spr_soldier</sprite>
     <sprite>sprites\spr_soldierSpawn</sprite>
+    <sprite>sprites\spr_wall</sprite>
     <sprite>sprites\spr_wallMask</sprite>
+    <sprite>sprites\spr_emptyWall</sprite>
     <sprite>sprites\spr_bloodStain</sprite>
     <sprite>sprites\spr_mask</sprite>
     <sprite>sprites\spr_dark</sprite>
+    <sprite>sprites\spr_monsterStand</sprite>
+    <sprite>sprites\spr_monsterRun</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\back_floor</background>
+    <background>background\back_wall</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_screenShake.gml</script>
@@ -27,9 +33,12 @@
     <objects name="Game">
       <object>objects\obj_monster</object>
       <object>objects\obj_wall</object>
+      <object>objects\obj_wallCreate</object>
+      <object>objects\obj_wallCreateEmpty</object>
       <object>objects\obj_soldier</object>
       <object>objects\obj_soldierSpawn</object>
       <object>objects\obj_bloodStain</object>
+      <object>objects\obj_w</object>
     </objects>
   </objects>
   <rooms name="rooms">
